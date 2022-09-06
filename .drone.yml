@@ -46,4 +46,6 @@ steps:
         - where docker-compose
         - docker login -u $NEXUS_USER -p $NEXUS_PASSWORD 100.90.71.128:8082
         - docker pull 100.90.71.128:8082/nax/days_count:latest
+        - docker stop days_count
+        - docker container prune
         - docker run -d --name days_count 100.90.71.128:8082/nax/days_count:latest
