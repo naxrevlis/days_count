@@ -2,6 +2,8 @@ kind: pipeline
 name: default
 
 steps:
+
+
   - name: deploy-ssh
     image: appleboy/drone-ssh
     settings:
@@ -12,8 +14,5 @@ steps:
         from_secret: ssh_password
       port: 22
       command_timeout: 2m
-      enviroment:
-        TEST_DATA:
-          from_secret: TEST_DATA
       script:
-        - echo "$TEST_DATA"
+        - echo ${TEST_DATA}
