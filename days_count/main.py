@@ -2,7 +2,7 @@ import datetime
 from rocketry import Rocketry
 import logging
 import pika
-from config.config import read_config_from_env
+from days_count.config.config import read_config_from_env
 import os
 import sys
 

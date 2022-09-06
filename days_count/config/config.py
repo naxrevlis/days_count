@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 
-
 def read_config_from_env():
     """Read .env file to json"""
     if os.getenv("RMQ_HOST") == "":
