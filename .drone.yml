@@ -19,6 +19,7 @@ steps:
       command_timeout: 2m
       envs: [ NEXUS_USER, NEXUS_PASSWORD ]
       script:
+        - echo $NEXUS_USER
         - pwd
         - whoami
-        - docker login -u $NEXUS_USER -p $NEXUS_PASSWORD 100.90.71.128:8082
+        - ./usr/local/bin/docker login -u $NEXUS_USER -p $NEXUS_PASSWORD 100.90.71.128:8082
