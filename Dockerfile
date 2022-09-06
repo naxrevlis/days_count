@@ -18,8 +18,8 @@ RUN pip install -U \
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-dev && rm -rf ~/.cache/pypoetry/{cache,artifacts}
 
-COPY ./days_count ./app
+COPY ./days_count ./days_count
 
-WORKDIR /app
+WORKDIR /days_count
 
 CMD python main.py

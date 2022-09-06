@@ -2,6 +2,24 @@ kind: pipeline
 name: default
 
 steps:
+  - name: test
+    image: python
+    commands:
+      - python -m pip install poetry
+      - python -m poetry install
+      - python -m poetry run python -m pytest
+
+  - name: docker
+    image: plugins/docker
+    settings:
+      insecure: true
+      repo: 100.90.71.128:8082/nax/days_count
+      registry: 100.90.71.128:8082
+      username:
+        from_secret: nexus_username
+      password:
+        from_secret: nexus_password
+
   - name: deploy-ssh
     image: appleboy/drone-ssh
     environment:
@@ -27,3 +45,5 @@ steps:
         - where docker
         - where docker-compose
         - docker login -u $NEXUS_USER -p $NEXUS_PASSWORD 100.90.71.128:8082
+        - docker pull 100.90.71.128:8082/nax/days_count:latest
+        - docker run -d --name days_count 100.90.71.128:8082/nax/days_count:latest
