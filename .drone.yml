@@ -20,6 +20,7 @@ steps:
       envs: [ NEXUS_USER, NEXUS_PASSWORD ]
       script:
         - echo $NEXUS_USER
+        - echo $PATH
         - pwd
         - whoami
         - where docker
