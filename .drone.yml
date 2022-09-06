@@ -16,4 +16,4 @@ steps:
       envs:
         - test_data
       script:
-        - echo $TEST_DATA
+        - echo ${TEST_DATA}
