@@ -5,7 +5,7 @@ steps:
 
   - name: deploy-ssh
     image: appleboy/drone-ssh
-    enviroment:
+    environment:
         TEST_DATA:
           from_secret: test_data
     settings:
