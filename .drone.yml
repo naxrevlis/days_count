@@ -20,3 +20,15 @@ steps:
       password:
         from_secret: nexus_password
 
+  - name: deploy-ssh
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 100.90.71.128
+      username: nax
+      password:
+        from_secret: ssh_password
+      port: 22
+      command_timeout: 2m
+      script:
+        - echo "Hello World"
