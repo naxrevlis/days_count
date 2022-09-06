@@ -47,5 +47,5 @@ steps:
         - docker image prune -f
         - docker stop days_count
         - docker container prune -f
-        - docker run -d --env-file env.config --name days_count 100.90.71.128:8082/nax/days_count:latest
+        - docker run -d --env-file env.config --restart always --name days_count 100.90.71.128:8082/nax/days_count:latest
         - rm env.config
