@@ -7,7 +7,7 @@ steps:
     commands:
       - python -m pip install poetry
       - python -m poetry install
-      - python -m poetry run python -m pytest
+      - python -m poetry run pytest
 
   - name: docker
     image: plugins/docker
