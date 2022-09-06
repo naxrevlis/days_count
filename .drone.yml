@@ -17,4 +17,4 @@ steps:
         - test_data
       script:
         - export TEST_DATA=$TEST_DATA
-        - echo ${TEST_DATA}
+        - echo $TEST_DATA
