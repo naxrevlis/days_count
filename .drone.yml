@@ -22,4 +22,6 @@ steps:
         - echo $NEXUS_USER
         - pwd
         - whoami
-        - ./usr/local/bin/docker login -u $NEXUS_USER -p $NEXUS_PASSWORD 100.90.71.128:8082
+        - where docker
+        - where docker-compose
+        - docker login -u $NEXUS_USER -p $NEXUS_PASSWORD 100.90.71.128:8082
