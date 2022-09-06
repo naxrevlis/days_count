@@ -2,7 +2,6 @@ kind: pipeline
 name: default
 
 steps:
-
   - name: deploy-ssh
     image: appleboy/drone-ssh
     environment:
@@ -20,4 +19,6 @@ steps:
       command_timeout: 2m
       envs: [ NEXUS_USER, NEXUS_PASSWORD ]
       script:
+        - pwd
+        - whoami
         - docker login -u $NEXUS_USER -p $NEXUS_PASSWORD 100.90.71.128:8082
