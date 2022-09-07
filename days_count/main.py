@@ -41,7 +41,7 @@ def send_message_to_queue(message: str, rmq_config) -> None:
     connection.close()
 
 
-@app.task("daily between 08:00 and 10:00")
+@app.task("daily on 11:00")
 def send_days_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
