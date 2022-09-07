@@ -3,8 +3,7 @@ from dotenv import load_dotenv
 
 def read_config_from_env():
     """Read .env file to json"""
-    if os.getenv("RMQ_HOST") == "":
-        load_dotenv()
+    load_dotenv()
     return {
         "host": os.getenv("RMQ_HOST"),
         "port": os.getenv("RMQ_PORT"),
