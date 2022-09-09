@@ -19,6 +19,9 @@ steps:
         from_secret: nexus_username
       password:
         from_secret: nexus_password
+    when:
+      branch:
+        - main
 
   - name: deploy-ssh
     image: appleboy/drone-ssh
@@ -49,3 +52,7 @@ steps:
         - docker container prune -f
         - docker run -d --env-file env.config -v /etc/localtime:/etc/localtime:ro --restart always --name days_count 100.90.71.128:8082/nax/days_count:latest
         - rm env.config
+
+    when:
+      branch:
+        - main
