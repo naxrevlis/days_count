@@ -53,6 +53,10 @@ steps:
         - docker run -d --env-file env.config -v /etc/localtime:/etc/localtime:ro --restart always --name days_count 100.90.71.128:8082/nax/days_count:latest
         - rm env.config
 
+    when:
+      branch:
+        - main
+
   - name: send telegram notification
     image: appleboy/drone-telegram
     settings:
@@ -60,13 +64,4 @@ steps:
         from_secret: telegram_nxbot_token
       to: 
         from_secret: telegram_alistro_user_id
-      message: >
-        {{#success build.status}}
-          build {{build.number}} succeeded. Good job.
-        {{else}}
-          build {{build.number}} failed. Fix me please.
-        {{/success}}
-
-    when:
-      branch:
-        - main
+      message_file: message_done_file.tpl
