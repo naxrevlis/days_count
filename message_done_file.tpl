@@ -1,9 +1,7 @@
-Build {{build.number}} for {{repo.name}} on {{commit.branch}}
-
+Build {{build.number}} for {{repo.name}} on {{commit.branch}}:
 {{#success build.status}}
-  Status: succeeded.
+Status: succeeded.
 {{else}}
-  Status: failed.
+Status: failed.
 {{/success}}
-
 Results: {{build.link}}
