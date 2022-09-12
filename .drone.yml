@@ -64,4 +64,4 @@ steps:
         from_secret: telegram_nxbot_token
       to: 
         from_secret: telegram_alistro_user_id
-      message_file: message_done_file.tpl
+      message_file: message_drone_file.tpl
