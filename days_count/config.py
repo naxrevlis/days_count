@@ -1,5 +1,9 @@
+#!/usr/bin/env python3
+
 import os
+
 from dotenv import load_dotenv
+
 
 def read_config_from_env():
     """Read .env file to json"""
@@ -18,6 +22,7 @@ def read_config_from_env():
 
 
 def main():
+    """Main function"""
     print(read_config_from_env())
 
 
