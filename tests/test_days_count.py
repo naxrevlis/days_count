@@ -2,7 +2,7 @@ import datetime
 
 from days_count import __version__
 from days_count.main import (calculate_days, get_days_count_from_date, get_days_str,
-                             get_hours_str, get_month_str, send_message_to_queue)
+                             get_hours_str)
 
 
 def test_version():
@@ -21,30 +21,20 @@ def test_calculate_days():
 
 
 def test_get_hours_str():
-    assert get_hours_str(1) == "1 час"
-    assert get_hours_str(2) == "2 часа"
-    assert get_hours_str(5) == "5 часов"
-    assert get_hours_str(11) == "11 часов"
-    assert get_hours_str(21) == "21 час"
-    assert get_hours_str(22) == "22 часа"
-    assert get_hours_str(25) == "25 часов"
+    assert get_hours_str(1) == "24 часа"
+    assert get_hours_str(2) == "48 часов"
+    assert get_hours_str(5) == "120 часов"
+    assert get_hours_str(11) == "264 часа"
+    assert get_hours_str(21) == "504 часа"
+    assert get_hours_str(22) == "528 часов"
+    assert get_hours_str(25) == "600 часов"
 
 
-def test_month_str():
-    assert get_month_str(1) == "1 месяц"
-    assert get_month_str(2) == "2 месяца"
-    assert get_month_str(5) == "5 месяцев"
-    assert get_month_str(11) == "11 месяцев"
-    assert get_month_str(21) == "21 месяц"
-    assert get_month_str(22) == "22 месяца"
-    assert get_month_str(25) == "25 месяцев"
-
-
-def test_days_str():
+def test_get_days_str():
     assert get_days_str(1) == "1 день"
     assert get_days_str(2) == "2 дня"
     assert get_days_str(5) == "5 дней"
     assert get_days_str(11) == "11 дней"
     assert get_days_str(21) == "21 день"
     assert get_days_str(22) == "22 дня"
-    assert get_days_str(25) == "25 дней"
+    assert get_days_str(25) == "25 дней"    

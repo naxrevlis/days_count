@@ -55,31 +55,22 @@ def get_days_str(days: int) -> str:
 
 def get_hours_str(days: int) -> str:
     """Return hours in string format with correct pluralization in Russian according"""
-    if days % 10 == 1 and days % 100 != 11:
-        return f"{days} час"
-    if days % 10 in [2, 3, 4] and days % 100 not in [12, 13, 14]:
-        return f"{days} часа"
-    return f"{days} часов"
+    hours = days * 24
+    if hours % 10 == 1 and hours % 100 != 11:
+        return f"{hours} час"
+    if hours % 10 in [2, 3, 4] and hours % 100 not in [12, 13, 14]:
+        return f"{hours} часа"
+    return f"{hours} часов"
 
 
-def get_month_str(days: int) -> str:
-    """Return month in string format with correct pluralization in Russian"""
-    if days % 10 == 1 and days % 100 != 11:
-        return f"{days} месяц"
-    if days % 10 in [2, 3, 4] and days % 100 not in [12, 13, 14]:
-        return f"{days} месяца"
-    return f"{days} месяцев"
-
-
-@app.task("daily on 10:30")
+@app.task("daily on 12:00")
 def send_days_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
     days = get_days_count_from_date(from_date)
     days_str = get_days_str(days)
     hours_str = get_hours_str(days)
-    month_str = get_month_str(days)
-    message = f"Прошло {days_str} с момента нашей первой встречи. А еще это {hours_str} и {month_str}!"
+    message = f"Уже {days_str} с момента нашей первой встречи. А ведь это {hours_str}!"
     message = str({"message": message})
     send_message_to_queue(message, config)
 

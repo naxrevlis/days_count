@@ -9,6 +9,15 @@ steps:
       - python -m poetry install
       - python -m poetry run pytest
 
+  - name: send telegram test notification
+    image: appleboy/drone-telegram
+    settings:
+      token: 
+        from_secret: telegram_nxbot_token
+      to: 
+        from_secret: telegram_alistro_user_id
+      message_file: drone_templates/message_drone_test.tpl
+
   - name: docker
     image: plugins/docker
     settings:
@@ -22,6 +31,15 @@ steps:
     when:
       branch:
         - main
+
+  - name: send telegram test notification
+    image: appleboy/drone-telegram
+    settings:
+      token: 
+        from_secret: telegram_nxbot_token
+      to: 
+        from_secret: telegram_alistro_user_id
+      message_file: drone_templates/message_drone_docker_build.tpl
 
   - name: deploy-ssh
     image: appleboy/drone-ssh
@@ -57,11 +75,11 @@ steps:
       branch:
         - main
 
-  - name: send telegram notification
+  - name: send telegram deploy notification
     image: appleboy/drone-telegram
     settings:
       token: 
         from_secret: telegram_nxbot_token
       to: 
         from_secret: telegram_alistro_user_id
-      message_file: message_drone_file.tpl
+      message_file: drone_templates/message_drone_deploy.tpl
