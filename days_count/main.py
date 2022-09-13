@@ -18,7 +18,7 @@ config = read_config_from_env()
 app = Rocketry()
 
 
-def days_count_from_date(date: datetime.date) -> int:
+def get_days_count_from_date(date: datetime.date) -> int:
     """Return the number of days since the date."""
 
     today = datetime.date.today()
@@ -44,7 +44,7 @@ def send_message_to_queue(message: str, rmq_config) -> None:
     connection.close()
 
 
-def days_str(days: int) -> str:
+def get_days_str(days: int) -> str:
     """Return days in string format with correct pluralization in Russian"""
     if days % 10 == 1 and days % 100 != 11:
         return f"{days} день"
@@ -53,7 +53,7 @@ def days_str(days: int) -> str:
     return f"{days} дней"
 
 
-def hours_str(days: int) -> str:
+def get_hours_str(days: int) -> str:
     """Return hours in string format with correct pluralization in Russian according"""
     if days % 10 == 1 and days % 100 != 11:
         return f"{days} час"
@@ -62,7 +62,7 @@ def hours_str(days: int) -> str:
     return f"{days} часов"
 
 
-def month_str(days: int) -> str:
+def get_month_str(days: int) -> str:
     """Return month in string format with correct pluralization in Russian"""
     if days % 10 == 1 and days % 100 != 11:
         return f"{days} месяц"
@@ -71,14 +71,15 @@ def month_str(days: int) -> str:
     return f"{days} месяцев"
 
 
-@app.task("daily on 08:00")
+@app.task("daily on 10:00")
 def send_days_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
-    days_string = days_str(days_count_from_date(from_date))
-    hours_str = hours_str(days_count_from_date(from_date))
-    month_str = month_str(days_count_from_date(from_date))
-    message = f"Прошло {days_string} с момента нашей первой встречи. А еще это {hours_str} и {month_str}!"
+    days = get_days_count_from_date(from_date)
+    days_str = get_days_str(days)
+    hours_str = get_hours_str(days)
+    month_str = get_month_str(days)
+    message = f"Прошло {days_str} с момента нашей первой встречи. А еще это {hours_str} и {month_str}!"
     message = str({"message": message})
     send_message_to_queue(message, config)
 
