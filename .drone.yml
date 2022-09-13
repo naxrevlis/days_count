@@ -32,7 +32,7 @@ steps:
       branch:
         - main
 
-  - name: send telegram test notification
+  - name: send telegram docker build notification
     image: appleboy/drone-telegram
     settings:
       token: 
