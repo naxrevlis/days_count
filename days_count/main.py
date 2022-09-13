@@ -71,7 +71,7 @@ def get_month_str(days: int) -> str:
     return f"{days} месяцев"
 
 
-@app.task("daily on 10:00")
+@app.task("daily on 10:30")
 def send_days_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
