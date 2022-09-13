@@ -12,9 +12,9 @@ steps:
   - name: send telegram test notification
     image: appleboy/drone-telegram
     settings:
-      token: 
+      token:
         from_secret: telegram_nxbot_token
-      to: 
+      to:
         from_secret: telegram_alistro_user_id
       message_file: drone_templates/message_drone_test.tpl
 
@@ -35,9 +35,9 @@ steps:
   - name: send telegram docker build notification
     image: appleboy/drone-telegram
     settings:
-      token: 
+      token:
         from_secret: telegram_nxbot_token
-      to: 
+      to:
         from_secret: telegram_alistro_user_id
       message_file: drone_templates/message_drone_docker_build.tpl
 
@@ -78,8 +78,8 @@ steps:
   - name: send telegram deploy notification
     image: appleboy/drone-telegram
     settings:
-      token: 
+      token:
         from_secret: telegram_nxbot_token
-      to: 
+      to:
         from_secret: telegram_alistro_user_id
       message_file: drone_templates/message_drone_deploy.tpl

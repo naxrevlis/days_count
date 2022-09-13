@@ -1,8 +1,12 @@
 import datetime
 
 from days_count import __version__
-from days_count.main import (calculate_days, get_days_count_from_date, get_days_str,
-                             get_hours_str)
+from days_count.main import (
+    calculate_days,
+    get_days_count_from_date,
+    get_days_str,
+    get_hours_str,
+)
 
 
 def test_version():
@@ -37,4 +41,4 @@ def test_get_days_str():
     assert get_days_str(11) == "11 дней"
     assert get_days_str(21) == "21 день"
     assert get_days_str(22) == "22 дня"
-    assert get_days_str(25) == "25 дней"    
+    assert get_days_str(25) == "25 дней"

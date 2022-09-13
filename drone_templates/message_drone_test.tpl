@@ -1,10 +1,9 @@
-
 Tests {{build.number}} for repo {{repo.name}} on {{commit.branch}}:
 
 {{#success build.status}}
-Status: :white_check_mark: succeeded.
+Status: succeeded.
 {{else}}
-Status: :x: failed.
+Status: failed.
 {{/success}}
 
 Results: {{build.link}}
