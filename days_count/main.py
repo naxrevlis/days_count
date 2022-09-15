@@ -63,7 +63,7 @@ def get_hours_str(days: int) -> str:
     return f"{hours} часов"
 
 
-@app.task("daily on 12:00")
+@app.task("daily between 01:00 and 02:00")
 def send_days_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
