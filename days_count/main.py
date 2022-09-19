@@ -53,6 +53,20 @@ def get_days_str(days: int) -> str:
     return f"{days} дней"
 
 
+def is_first_day_of_week(days: int) -> bool:
+    """Return True if days is first day of week"""
+    return days % 7 == 0
+
+
+def get_weeks_str(weeks: int) -> str:
+    """Return weeks in string format with correct pluralization in Russian"""
+    if weeks % 10 == 1 and weeks % 100 != 11:
+        return f"{weeks} неделя"
+    if weeks % 10 in [2, 3, 4] and weeks % 100 not in [12, 13, 14]:
+        return f"{weeks} недели"
+    return f"{weeks} недель"
+
+
 def get_hours_str(days: int) -> str:
     """Return hours in string format with correct pluralization in Russian according"""
     hours = days * 24
@@ -73,6 +87,19 @@ def send_days_to_queue() -> None:
     message = f"Уже {days_str} с момента нашей первой встречи. А ведь это {hours_str}!"
     message = str({"message": message})
     send_message_to_queue(message, config)
+
+
+@app.task("daily between 01:00 and 02:00")
+def send_weeks_to_queue() -> None:
+    """Send message to queue"""
+    from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
+    days = get_days_count_from_date(from_date)
+    if is_first_day_of_week(days):
+        weeks = days // 7
+        weeks_str = get_weeks_str(weeks)
+        message = f"Сегодня +1 неделя) Мы вместе {weeks_str} !"
+        message = str({"message": message})
+        send_message_to_queue(message, config)
 
 
 def main() -> None:

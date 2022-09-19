@@ -6,6 +6,8 @@ from days_count.main import (
     get_days_count_from_date,
     get_days_str,
     get_hours_str,
+    get_weeks_str,
+    is_first_day_of_week,
 )
 
 
@@ -42,3 +44,19 @@ def test_get_days_str():
     assert get_days_str(21) == "21 день"
     assert get_days_str(22) == "22 дня"
     assert get_days_str(25) == "25 дней"
+
+
+def test_get_weeks_str():
+    assert get_weeks_str(1) == "1 неделя"
+    assert get_weeks_str(2) == "2 недели"
+    assert get_weeks_str(5) == "5 недель"
+    assert get_weeks_str(11) == "11 недель"
+    assert get_weeks_str(21) == "21 неделя"
+    assert get_weeks_str(22) == "22 недели"
+    assert get_weeks_str(25) == "25 недель"
+
+
+def test_is_first_day_of_week():
+    assert is_first_day_of_week(7) is True
+    assert is_first_day_of_week(14) is True
+    assert is_first_day_of_week(6) is False
