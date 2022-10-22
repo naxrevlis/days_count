@@ -8,6 +8,8 @@ from rocketry import Rocketry
 
 from config import read_config_from_env
 
+DATE_TO_MEET = datetime.date(2022, 11, 26)
+
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
@@ -23,6 +25,14 @@ def get_days_count_from_date(date: datetime.date) -> int:
 
     today = datetime.date.today()
     return (today - date).days
+
+
+def get_days_to_date(date: datetime.date) -> int:
+    """Return days to date"""
+    if date > datetime.date.today():
+        return "Date already passed"
+    today = datetime.date.today()
+    return (date - today).days
 
 
 def calculate_days(date: datetime.date, days: int) -> datetime.date:
@@ -77,7 +87,7 @@ def get_hours_str(days: int) -> str:
     return f"{hours} часов"
 
 
-@app.task("daily between 01:00 and 02:00")
+@app.task("daily between 06:00 and 07:00")
 def send_days_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
@@ -89,7 +99,7 @@ def send_days_to_queue() -> None:
     send_message_to_queue(message, config)
 
 
-@app.task("daily between 01:00 and 02:00")
+@app.task("daily between 06:00 and 07:00")
 def send_weeks_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
@@ -100,6 +110,16 @@ def send_weeks_to_queue() -> None:
         message = f"Сегодня +1 неделя) Мы вместе {weeks_str} !"
         message = str({"message": message})
         send_message_to_queue(message, config)
+
+
+@app.task("daily between 06:00 and 07:00")
+def send_days_to_meet_to_queue() -> None:
+    """Send message to queue"""
+    days = get_days_to_date(DATE_TO_MEET)
+    days_str = get_days_str(days)
+    message = f"До нашей встречи осталось {days_str}!"
+    message = str({"message": message})
+    send_message_to_queue(message, config)
 
 
 def main() -> None:
