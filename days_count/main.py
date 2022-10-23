@@ -8,7 +8,7 @@ from rocketry import Rocketry
 
 from config import read_config_from_env
 
-DATE_TO_MEET = datetime.date(2022, 11, 26)
+DATE_TO_MEET = datetime.date(2022, 11, 25)
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -126,7 +126,7 @@ def send_days_to_meet_to_queue() -> None:
             message = f"До встречи осталось {days_str} !"
         message = str({"message": message})
         send_message_to_queue(message, config)
-    
+
 
 def main() -> None:
     """Main function"""
