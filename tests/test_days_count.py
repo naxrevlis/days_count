@@ -28,6 +28,7 @@ def test_calculate_days():
 
 
 def test_get_hours_str():
+    assert get_hours_str(0) == "0 часов"
     assert get_hours_str(1) == "24 часа"
     assert get_hours_str(2) == "48 часов"
     assert get_hours_str(5) == "120 часов"
@@ -38,6 +39,7 @@ def test_get_hours_str():
 
 
 def test_get_days_str():
+    assert get_days_str(0) == "0 дней"
     assert get_days_str(1) == "1 день"
     assert get_days_str(2) == "2 дня"
     assert get_days_str(5) == "5 дней"
@@ -48,6 +50,7 @@ def test_get_days_str():
 
 
 def test_get_weeks_str():
+    assert get_weeks_str(0) == "0 недель"
     assert get_weeks_str(1) == "1 неделя"
     assert get_weeks_str(2) == "2 недели"
     assert get_weeks_str(5) == "5 недель"

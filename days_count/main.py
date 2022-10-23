@@ -87,7 +87,7 @@ def get_hours_str(days: int) -> str:
     return f"{hours} часов"
 
 
-@app.task("daily between 10:30 and 11:00")
+@app.task("daily between 07:40 and 11:00")
 def send_days_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
@@ -100,7 +100,7 @@ def send_days_to_queue() -> None:
     send_message_to_queue(message, config)
 
 
-@app.task("daily between 10:30 and 11:00")
+@app.task("daily between 07:40 and 11:00")
 def send_weeks_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
@@ -114,7 +114,7 @@ def send_weeks_to_queue() -> None:
         send_message_to_queue(message, config)
 
 
-@app.task("daily between 10:30 and 11:00")
+@app.task("daily between 07:40 and 11:00")
 def send_days_to_meet_to_queue() -> None:
     """Send message to queue"""
     days = get_days_to_date(DATE_TO_MEET)
