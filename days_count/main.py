@@ -29,8 +29,8 @@ def get_days_count_from_date(date: datetime.date) -> int:
 
 def get_days_to_date(date: datetime.date) -> int:
     """Return days to date"""
-    if date > datetime.date.today():
-        return "Date already passed"
+    if date < datetime.date.today():
+        return False
     today = datetime.date.today()
     return (date - today).days
 
@@ -87,11 +87,12 @@ def get_hours_str(days: int) -> str:
     return f"{hours} часов"
 
 
-@app.task("daily between 06:00 and 07:00")
+@app.task("daily between 10:30 and 11:00")
 def send_days_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
-    days = get_days_count_from_date(from_date)
+    # TODO: Поправить дату в конфиге
+    days = get_days_count_from_date(from_date) - 1
     days_str = get_days_str(days)
     hours_str = get_hours_str(days)
     message = f"Уже {days_str} с момента нашей первой встречи. А ведь это {hours_str}!"
@@ -99,11 +100,12 @@ def send_days_to_queue() -> None:
     send_message_to_queue(message, config)
 
 
-@app.task("daily between 06:00 and 07:00")
+@app.task("daily between 10:30 and 11:00")
 def send_weeks_to_queue() -> None:
     """Send message to queue"""
     from_date = datetime.datetime.strptime(config["meet_date"], "%Y-%m-%d").date()
-    days = get_days_count_from_date(from_date)
+    # TODO: Поправить дату в конфиге
+    days = get_days_count_from_date(from_date) - 1
     if is_first_day_of_week(days):
         weeks = days // 7
         weeks_str = get_weeks_str(weeks)
@@ -112,15 +114,19 @@ def send_weeks_to_queue() -> None:
         send_message_to_queue(message, config)
 
 
-@app.task("daily between 06:00 and 07:00")
+@app.task("daily between 10:30 and 11:00")
 def send_days_to_meet_to_queue() -> None:
     """Send message to queue"""
     days = get_days_to_date(DATE_TO_MEET)
-    days_str = get_days_str(days)
-    message = f"До нашей встречи осталось {days_str}!"
-    message = str({"message": message})
-    send_message_to_queue(message, config)
-
+    if days:
+        days_str = get_days_str(days)
+        if days == 0:
+            message = f"Я встречу тебя уже сегодня!!!"
+        else:
+            message = f"До встречи осталось {days_str} !"
+        message = str({"message": message})
+        send_message_to_queue(message, config)
+    
 
 def main() -> None:
     """Main function"""

@@ -8,6 +8,7 @@ from days_count.main import (
     get_hours_str,
     get_weeks_str,
     is_first_day_of_week,
+    get_days_to_date,
 )
 
 
@@ -60,3 +61,9 @@ def test_is_first_day_of_week():
     assert is_first_day_of_week(7) is True
     assert is_first_day_of_week(14) is True
     assert is_first_day_of_week(6) is False
+
+
+def test_get_days_to_date():
+    assert get_days_to_date(datetime.date.today()) == 0
+    assert get_days_to_date(datetime.date.today() + datetime.timedelta(days=1)) == 1
+    assert get_days_to_date(datetime.date.today() - datetime.timedelta(days=1)) == False
