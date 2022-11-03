@@ -87,6 +87,14 @@ def get_hours_str(days: int) -> str:
     return f"{hours} часов"
 
 
+@app.task("hourly between 09:00 and 22:00")
+def send_challenge_to_queue() -> None:
+    """Send message to queue"""
+    message = f"Челлендж;-)!"
+    message = str({"message": message})
+    send_message_to_queue(message, config)
+
+
 @app.task("daily between 07:40 and 11:00")
 def send_days_to_queue() -> None:
     """Send message to queue"""
