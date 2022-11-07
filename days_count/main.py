@@ -87,12 +87,12 @@ def get_hours_str(days: int) -> str:
     return f"{hours} часов"
 
 
-@app.task("hourly between 09:00 and 22:00")
-def send_challenge_to_queue() -> None:
-    """Send message to queue"""
-    message = f"Челлендж;-)!"
-    message = str({"message": message})
-    send_message_to_queue(message, config)
+# @app.task("hourly between 09:00 and 22:00")
+# def send_challenge_to_queue() -> None:
+#    """Send message to queue"""
+#    message = f"Челлендж;-)!"
+#    message = str({"message": message})
+#    send_message_to_queue(message, config)
 
 
 @app.task("daily between 07:40 and 11:00")
@@ -122,18 +122,18 @@ def send_weeks_to_queue() -> None:
         send_message_to_queue(message, config)
 
 
-@app.task("daily between 07:40 and 11:00")
-def send_days_to_meet_to_queue() -> None:
-    """Send message to queue"""
-    days = get_days_to_date(DATE_TO_MEET)
-    if days:
-        days_str = get_days_str(days)
-        if days == 0:
-            message = f"Я встречу тебя уже сегодня!!!"
-        else:
-            message = f"До встречи осталось {days_str} !"
-        message = str({"message": message})
-        send_message_to_queue(message, config)
+# @app.task("daily between 07:40 and 11:00")
+# def send_days_to_meet_to_queue() -> None:
+#    """Send message to queue"""
+#    days = get_days_to_date(DATE_TO_MEET)
+#    if days:
+#        days_str = get_days_str(days)
+#        if days == 0:
+#            message = f"Я встречу тебя уже сегодня!!!"
+#        else:
+#            message = f"До встречи осталось {days_str} !"
+#        message = str({"message": message})
+#        send_message_to_queue(message, config)
 
 
 def main() -> None:
